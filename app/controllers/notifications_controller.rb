@@ -10,7 +10,8 @@ class NotificationsController < ApplicationController
 	    
 	    @notification = Notification.new(endpoint: endpoint, p256h: p256h, auth: auth)
       byebug
-	    @notification.save()
+	    @notification.save!
+      redirect_to pages_index_path
     end
 
     def message

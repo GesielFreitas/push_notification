@@ -9,7 +9,6 @@ class NotificationsController < ApplicationController
 	    auth = jsonbody["subscription"]["keys"]["auth"]
 	    
 	    @notification = Notification.new(endpoint: endpoint, p256h: p256h, auth: auth)
-      byebug
 	    @notification.save!
       redirect_to pages_index_path
     end

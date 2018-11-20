@@ -6,9 +6,9 @@ self.addEventListener('push', function (event) {
     var dir = 'ltr';
     var tag = "push-simple-demo-tag";
     var data = jsonbody.link || "/blogs";
-    var icon = "/images/icons/icon-96x96.png";
+    var icon = "<%= asset_path('icon.png') %>";
     var renotify = true;
-    var actions = [{ action: 'confirm', title: 'Visit', icon: '/images/icons/icon-96x96.png' }];
+    var actions = [{ action: 'confirm', title: 'Visit', icon: "<%= asset_path('icon.png') %>" }];
 
     event.waitUntil(self.registration.showNotification(title, { body: body, icon: icon, dir: dir, tag: tag, renotify: renotify, data: data, actions: actions }));
 });

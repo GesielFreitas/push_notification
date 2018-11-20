@@ -4,12 +4,12 @@ class NotificationsController < ApplicationController
 	def push
 
 	    jsonbody = JSON.parse request.body.read()
-	    byebug
 	    endpoint = jsonbody["subscription"]["endpoint"]
-	    p256dh = jsonbody["subscription"]["keys"]["p256dh"]
+	    p256h = jsonbody["subscription"]["keys"]["p256dh"]
 	    auth = jsonbody["subscription"]["keys"]["auth"]
 	    
-	    @notification = Notification.new(endpoint: endpoint, p256dh: p256dh, auth: auth)
+	    @notification = Notification.new(endpoint: endpoint, p256h: p256h, auth: auth)
+      byebug
 	    @notification.save()
     end
 
@@ -20,7 +20,7 @@ class NotificationsController < ApplicationController
        			Webpush.payload_send(
            			message: request.body.read(),
            			endpoint: notif.endpoint,
-           			p256dh: notif.p256dh,
+           			p256dh: notif.p256h,
            			auth: notif.auth,
            			ttl: 24 * 60 * 60,
            			vapid: {
@@ -35,3 +35,5 @@ class NotificationsController < ApplicationController
   	end
 
 end
+
+

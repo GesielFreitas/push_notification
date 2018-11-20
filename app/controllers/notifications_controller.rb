@@ -10,29 +10,37 @@ class NotificationsController < ApplicationController
 	    
 	    @notification = Notification.new(endpoint: endpoint, p256h: p256h, auth: auth)
 	    @notification.save!
-      redirect_to pages_index_path
-    end
+      redirect_to push_send_path
+  end
 
-    def message
-    	@notifications = Notification.all
-    	for notif in @notifications
-     		begin
+  def pushSend
+      message
+  end
+
+  def message
+    @notification = Notification.last
+    	#for notif in @notifications
+     	#	begin
        			Webpush.payload_send(
-           			message: request.body.read(),
-           			endpoint: notif.endpoint,
-           			p256dh: notif.p256h,
-           			auth: notif.auth,
+           			message: get_message,
+           			endpoint: @notification.endpoint,
+           			p256dh: @notification.p256h,
+           			auth: @notification.auth,
            			ttl: 24 * 60 * 60,
            			vapid: {
-               			subject: 'mailto:jlwhoo7@gmail.com',
-               			public_key: ENV['VAPID_PUBLIC'],
-               			private_key: ENV['VAPID_PRIVATE']
+               			subject: 'mailto:gesiel.was.f@gmail.com',
+               			public_key: ENV['VAPID_PUBLIC_KEY'],
+               			private_key: ENV['VAPID_PRIVATE_KEY']
            			}
        			)
-     		rescue
-     		end
-    	end
-  	end
+     	#	rescue
+     	#	end
+    	#end
+  end
+
+  def get_message
+    "mensagem enviada com sucesso"
+  end
 
 end
 

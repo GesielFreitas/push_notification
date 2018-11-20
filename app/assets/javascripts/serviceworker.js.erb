@@ -1,11 +1,10 @@
 self.addEventListener('push', function (event) {
-    var jsonbody = JSON.parse(event.data && event.data.text());
-
-    var title = jsonbody.title || "New Blog Post";
-    var body = jsonbody.content || "Come to wenghan.me";
+  
+    var title = (event.data && event.data.text().split("-")[0]) || "New Blog Post";
+    var body; body = event.data.text().split("-")[1];
     var dir = 'ltr';
     var tag = "push-simple-demo-tag";
-    var data = jsonbody.link || "/pages/index";
+    var data = "/pages/index";
     var icon = "<%= asset_path('icon.png') %>";
     var renotify = true;
     var actions = [{ action: 'confirm', title: 'Visit', icon: "<%= asset_path('icon.png') %>" }];

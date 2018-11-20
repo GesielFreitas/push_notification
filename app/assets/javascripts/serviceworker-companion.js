@@ -1,7 +1,7 @@
 if (navigator.serviceWorker) {
   navigator.serviceWorker.ready
     .then((swReg) => {
-      console.log("When SW is ready");
+      console.log("Novo Worker");
       return swReg.pushManager
         .subscribe({
           userVisibleOnly: true,
